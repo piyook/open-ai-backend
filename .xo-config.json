@@ -1,0 +1,7 @@
+{
+	"prettier": "true",
+	"rules": {
+		"import/extensions": 0,
+		"n/file-extension-in-import": 0
+	}
+}
