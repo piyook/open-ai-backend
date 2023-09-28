@@ -1,15 +1,15 @@
 services:
- frontend:
-  container_name: frontend
+ openai-connect:
+  container_name: openai-connect
   restart: always
   build: .
   volumes:
    - ./src:/usr/src/app/src
    - /usr/src/app/node_modules
   ports:
-   - '5173:5173'
+   - '3000:3000'
   healthcheck:
-   test: ['CMD', 'curl', '-f', 'https://localhost:5173']
+   test: ['CMD', 'curl', '-f', 'https://localhost:3000']
    interval: 1m30s
    timeout: 10s
    retries: 3
