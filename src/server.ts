@@ -6,6 +6,7 @@ import express, { type Response, type Request } from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
+import auth from './middleware/auth';
 import { homeRoute, oaiRoute } from './routes';
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
@@ -23,7 +24,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (_, response: Response) => homeRoute(response));
-app.post('/api/oai', async (request: Request, response: Response) => {
+
+app.post('/api/oai', auth, async (request: Request, response: Response) => {
 	return oaiRoute(request, response);
 });
 
