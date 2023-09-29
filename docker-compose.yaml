@@ -2,6 +2,8 @@ services:
  openai-connect:
   container_name: openai-connect
   restart: always
+  env_file:
+    - api.env
   build: .
   volumes:
    - ./src:/usr/src/app/src
