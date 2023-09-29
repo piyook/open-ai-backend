@@ -1,11 +1,16 @@
 import OpenAI from 'openai';
-import { type Response } from 'express';
+import { type Response, type Request } from 'express';
 import oaiConnect from '../helpers/oai-connect';
 
-const oaiRoute = async (response: Response): Promise<Response> => {
+const oaiRoute = async (
+	request: Request,
+	response: Response,
+): Promise<Response> => {
+	const userPrompt = `${request.body?.userPrompt ?? ''}`;
+
 	try {
 		return response.json({
-			data: { message: `${await oaiConnect('say hello')}}` },
+			data: { message: `${await oaiConnect(userPrompt)}}` },
 		});
 	} catch (error) {
 		if (error instanceof OpenAI.APIError) {
@@ -17,4 +22,4 @@ const oaiRoute = async (response: Response): Promise<Response> => {
 	}
 };
 
-export default oaiRoute;
+export { oaiRoute };

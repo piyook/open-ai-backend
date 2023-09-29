@@ -6,4 +6,4 @@ const homeRoute = (response: Response): Response => {
 	);
 };
 
-export default homeRoute;
+export { homeRoute };
