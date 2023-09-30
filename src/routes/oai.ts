@@ -1,9 +1,7 @@
 import OpenAI from 'openai';
-import redis from 'redis';
 import { type Response, type Request } from 'express';
 import oaiConnect from '../helpers/oai-connect';
-
-const config = process.env;
+import { redisConnect } from '../helpers/redis-connect';
 
 const oaiRoute = async (
 	request: Request,
@@ -11,21 +9,7 @@ const oaiRoute = async (
 ): Promise<Response> => {
 	const userPrompt = `${request.body?.userPrompt ?? ''}`;
 
-	// Connect to redis
-	const redisClient = await redis
-		.createClient({
-			url: config?.REDIS_URL ?? 'redis://redis:6379',
-			password: config?.REDIS_PASSWORD ?? null,
-			socket: {
-				port: Number.parseInt(config?.REDIS_PORT ?? '6679', 10),
-				host: config?.REDIS_HOST ?? '127.0.0.1',
-			},
-		})
-		.on('error', (error) => {
-			console.error(`Error: ${error}`);
-			throw new Error('Error connecting to REDIS');
-		})
-		.connect();
+	const redisClient = await redisConnect();
 
 	// Try to get cached keyed with userPrompt question
 	const cachedResponse = await redisClient.get(userPrompt);
