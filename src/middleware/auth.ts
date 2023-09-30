@@ -1,6 +1,6 @@
 /*  You will need to use a Database and bcrypt to create an auth flow for users to register and be granted a JWT access token
-    Here just for demo purposes a hard coded JWT will be used that will never expire.
-    Example JWT value = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSm9obiBTbWl0aCIsInVzZXJJZCI6ImRlbW8tb25seSJ9.6o58e6tb2f7rxaqFJ1kT5z2gt1zjRSLquGMnf3Zu7dk
+	Here just for demo purposes a hard coded JWT will be used that will never expire.
+	Example JWT value = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSm9obiBTbWl0aCIsInVzZXJJZCI6ImRlbW8tb25seSJ9.6o58e6tb2f7rxaqFJ1kT5z2gt1zjRSLquGMnf3Zu7dk
 */
 
 import jwt from 'jsonwebtoken';
