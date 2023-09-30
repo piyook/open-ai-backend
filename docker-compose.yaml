@@ -19,10 +19,22 @@ services:
 
   redis:
     container_name: openai-cache
+    environment:
+       REDIS_PASSWORD: /run/secrets/redis_password
+    secrets:
+      - redis_password
     image: redis:7.2.1-alpine
     restart: always
     ports:
       - '6379:6379'
-    command: redis-server --loglevel warning --requirepass fHJG9EgHnnxdEWDhiLsyJVge6oYd4t66
+    command: sh -c "redis-server --loglevel warning --requirepass $(cat $$REDIS_PASSWORD)"
+
+    
+
+secrets:
+  redis_password:
+    file: ./redis-password.env
+    
+   
 
 

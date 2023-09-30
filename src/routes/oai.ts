@@ -3,10 +3,7 @@ import redis from 'redis';
 import { type Response, type Request } from 'express';
 import oaiConnect from '../helpers/oai-connect';
 
-const redisPort = 6379;
-const redisHost = '127.0.0.1';
-const redisPassword = 'fHJG9EgHnnxdEWDhiLsyJVge6oYd4t66';
-const redisUrl = 'redis://redis:6379';
+const config = process.env;
 
 const oaiRoute = async (
 	request: Request,
@@ -17,11 +14,11 @@ const oaiRoute = async (
 	// Connect to redis
 	const redisClient = await redis
 		.createClient({
-			url: redisUrl,
-			password: redisPassword,
+			url: config?.REDIS_URL ?? 'redis://redis:6379',
+			password: config?.REDIS_PASSWORD ?? null,
 			socket: {
-				port: redisPort,
-				host: redisHost,
+				port: Number.parseInt(config?.REDIS_PORT ?? '6679', 10),
+				host: config?.REDIS_HOST ?? '127.0.0.1',
 			},
 		})
 		.on('error', (error) => {
