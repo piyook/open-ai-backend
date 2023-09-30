@@ -1,18 +1,40 @@
 services:
- openai-connect:
-  container_name: openai-connect
-  restart: always
-  env_file:
-    - api.env
-  build: .
-  volumes:
-   - ./src:/usr/src/app/src
-   - /usr/src/app/node_modules
-  ports:
-   - '3000:3000'
-  healthcheck:
-   test: ['CMD', 'curl', '-f', 'https://localhost:3000']
-   interval: 1m30s
-   timeout: 10s
-   retries: 3
-   start_period: 40s
+  openai-connect:
+    container_name: openai-connect
+    restart: always
+    env_file:
+      - api.env
+    build: .
+    volumes:
+      - ./src:/usr/src/app/src
+      - /usr/src/app/node_modules
+    ports:
+      - '3000:3000'
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:3000']
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  redis:
+    container_name: openai-cache
+    environment:
+       REDIS_PASSWORD: /run/secrets/redis_password
+    secrets:
+      - redis_password
+    image: redis:7.2.1-alpine
+    restart: always
+    ports:
+      - '6379:6379'
+    command: sh -c "redis-server --loglevel warning --requirepass $(cat $$REDIS_PASSWORD)"
+
+    
+
+secrets:
+  redis_password:
+    file: ./redis-password.env
+    
+   
+
+
