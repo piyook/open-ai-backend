@@ -33,7 +33,7 @@ services:
 
 secrets:
   redis_password:
-    file: ./redis-password.env
+    file: ./redis-password.secret
     
    
 
