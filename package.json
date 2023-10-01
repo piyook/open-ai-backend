@@ -12,7 +12,8 @@
 		"audit": "npm audit --omit-dev",
 		"start": "docker compose up -d",
 		"dev": "tsx watch src/server.ts",
-		"stop": "docker compose down"
+		"stop": "docker compose down",
+		"rebuild": "docker compose down --volumes && docker compose up --build"
 	},
 	"dependencies": {
 		"@types/body-parser": "^1.19.3",
