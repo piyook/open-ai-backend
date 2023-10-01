@@ -101,6 +101,8 @@ If a response is returned from the REDIS cache the response object will have 'ca
 
 ![example2](images/image2.png)
 
-The REDIS cache is password protected and the password is stored in the redis-password.secret file and injected into Docker as a secret.
+### REDIS password
 
-This can be changed if required but the filename should be changed (also updating the dockercompose details) and this file omitted from version control if required to be kept secret.
+The REDIS cache is password protected and the password is stored in the redis-password.secret file and injected into Docker as a secret. As this is just a local demo project, this file and password is purposely visible in the repo.   
+
+The password can be changed if required but the secrets filename should be changed (also updating the secrets filename in the REDIS service in the docker-compose file) and this file then omitted from version control if it is required to be kept secret in the future.
