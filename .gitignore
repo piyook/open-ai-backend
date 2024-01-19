@@ -26,3 +26,5 @@ dist-ssr
 *.env
 !example.api.env
 !redis-password.env
+
+nuke-it.log
